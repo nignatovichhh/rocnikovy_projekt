@@ -28,17 +28,23 @@ def find_route(query):
         if "data" in location_search_result and len(location_search_result["data"]) > 0:
             location_id = location_search_result["data"][0]["location_id"]
             location_address = location_search_result["data"][0]["address_obj"]["address_string"]
-            location_long = location_search_result["data"][0]["longitude"]
-            location_lat = location_search_result["data"][0]["latitude"]
-
             attraction["Address"]["AddressStr"] = location_address
-            attraction["Address"]["Latitude"] = location_lat
-            attraction["Address"]["Longitude"] = location_long
-            
+
             photos_search_result = tripadvisor_wrapper.location_photos(location_id)
             if "data" in photos_search_result:
                 for photo in photos_search_result["data"]:
                     attraction["Photos"].append(photo["images"]["large"]["url"])
+            
+            location_details_result = tripadvisor_wrapper.location_details(location_id)
+            
+            if "longitude" in location_details_result:
+                location_long = location_details_result["longitude"]
+                attraction["Address"]["Longitude"] = location_long
+            
+            if "latitude" in location_details_result:
+                location_lat = location_details_result["latitude"]
+                attraction["Address"]["Latitude"] = location_lat
+            
         print(attraction)
 
     print(openai_json)

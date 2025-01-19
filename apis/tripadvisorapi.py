@@ -32,3 +32,7 @@ class TripAdvisorApiWrapper():
         url = f"https://api.content.tripadvisor.com/api/v1/location/{location_id}/photos?language=en&key={self.api_key}"
         return self.send_request(url)
 
+    def location_details(self,location_id: str):
+        url = location_details_url = f"https://api.content.tripadvisor.com/api/v1/location/{location_id}/details?language=en&currency=USD&key={self.api_key}"
+        return self.send_request(url)
+

@@ -47,16 +47,8 @@ def find_route(query):
 @app.route('/find_route',methods=['GET'])
 def get_parameters():
     args = request.args.to_dict()
-    
-    if 'interests' in args:
-        args['interests'] = args['interests'].split(',')
-    if 'age' in args:
-        args['age'] = args['age'].split(',')
-    
-    query = jsonify(args)
-    print(query)
 
-    return find_route(query)
+    return find_route(str(args))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

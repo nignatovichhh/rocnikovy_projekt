@@ -1,0 +1,91 @@
+.main_page {
+  background-color: #ffffff;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 2%;
+  width: calc(100vw - 4%);
+}
+
+.filter_section {
+  display: flex;
+  flex-wrap: wrap;
+  width: 98%;
+  gap: 20px;
+  font-size: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #495464;
+  padding: 1%;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5px;
+  color: #495464;
+}
+
+.filter label {
+  margin-bottom: 5px;
+  color: #495464;
+}
+
+.filter select {
+  background-color: white;
+  border: 1px solid #ccc;
+  height: 30px;
+}
+
+.btn {
+  background-color: #495464;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 110px;
+}
+
+.btn:hover {
+  background-color: #BBBFCA;
+}
+
+.routes_wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.route_container {
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.route_container h4 {
+  text-align: center;
+  font-size: 18px;
+}
+
+.route_container .address {
+  font-size: 12px;
+  color: #555;
+}
+
+.route_container p {
+  font-size: 14px;
+  text-align: justify;
+  line-height: 1.1;
+}

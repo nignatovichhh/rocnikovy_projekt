@@ -1,0 +1,31 @@
+.dropdown_checkbox {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown_checkbox button {
+    background-color: #ffffff;
+    border: 1px solid #BBBFCA;
+    padding: 5px;
+    cursor: pointer;
+    height: 35px;
+    width: 50px;
+}
+
+.dropdown_checkbox .dropdown_content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1;
+}
+
+.dropdown_checkbox .dropdown_content label {
+    display: block;
+    margin: 5px 0;
+}
+
+.dropdown_checkbox:hover .dropdown_content {
+    display: block;
+}

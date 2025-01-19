@@ -1,0 +1,12 @@
+Task for AI:
+Generate an optimal route between the starting point and the destination,considering all input parameters
+Recommend Key attractions along the route.
+Response must contain **ONLY JSON** in the specified format,with no explanations,text before or after the JSON.Any text outside of the JSON format is considered a violation.Include the names of attractions,restaurants,and other recommendations exactly as they appear on TripAdvisor.**Exclude any items that cannot be verified on TripAdvisor or have no listing there.**
+Response Format in JSON:
+{
+ "Route":{"TravelTime":{integer},"Transportation":{array of subset of ['bus','train','car','foot']},"RouteOverview":"{short description}" },"AttractionRecommendations":[{ "Name":"{Name of the attraction}","Description":"{Short description}","Location":"{Latitude,Longitude}",“Radius”:{integer} //Radius in **meters** from latitude,longtitude coordinate where this attraction can be found
+  "Cost":{integer} //based on number of people and age groups
+}
+// Repeat for each attraction],
+"AdditionalRecommendations":{"StopoverPoints":"{description if specified}","RestaurantsAndCafes":"{description if specified}"},"BudgetUSD":{"Food":{integer},"Miscellaneous":{integer}},"Notes":"{additional recommendations or warnings if any}"
+}

@@ -14,7 +14,8 @@ class TripAdvisorApiWrapper():
         self.api_key = TA_API_KEY
 
     def send_request(self, url: str):
-        headers = {"accept": "application/json"}
+        headers = {"accept": "application/json",
+                "Referer": "https://rocnikovy-projekt.onrender.com"}
         response = requests.get(url, headers=headers)
         return json.loads(response.text)
     

@@ -1,11 +1,12 @@
-from flask import Flask
-
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from apis.tripadvisorapi import TripAdvisorApiWrapper
 from apis.openaiapi import OpenAIApiWrapper
 
 openai_wrapper = OpenAIApiWrapper()
 tripadvisor_wrapper = TripAdvisorApiWrapper()
 app = Flask(__name__)
+CORS(app)
 
 def find_route(query):
     openai_json = openai_wrapper.send_request(query)
@@ -43,10 +44,18 @@ def find_route(query):
     print(openai_json)
     return openai_json
 
-@app.route('/find_route')
+@app.route('/find_route',methods=['GET'])
 def get_parameters():
-    query = '{ "stcity": "Bratislava", "destcity": "Linz", "from": "2025-01-19T09:00", "to": "2025-01-19T19:00", "interests": ["culture", "nature","active leisure"], "numpeop": 2, "budget": 100, "age": ["18-30"]}'
-    print(find_route(query))
+    args = request.args.to_dict()
+    
+    if 'interests' in args:
+        args['interests'] = args['interests'].split(',')
+    if 'age' in args:
+        args['age'] = args['age'].split(',')
+    
+    query = jsonify(args)
+    print(query)
+
     return find_route(query)
 
 if __name__ == '__main__':

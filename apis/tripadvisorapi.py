@@ -9,6 +9,8 @@ TA_API_KEY = os.getenv("TA_API_KEY")
 
 class TripAdvisorApiWrapper():
     def __init__(self):
+        print("KEY")
+        print(TA_API_KEY)
         self.api_key = TA_API_KEY
 
     def send_request(self, url: str):

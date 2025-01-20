@@ -12,7 +12,6 @@ def find_route(query):
     openai_json = openai_wrapper.send_request(query)
     if openai_json == None:
         return None
-    print(openai_json)
 
     for attraction in openai_json["AttractionRecommendations"]:
         attraction["Address"] = {}
@@ -23,7 +22,6 @@ def find_route(query):
 
     for attraction in openai_json["AttractionRecommendations"]:
         location_search_result = tripadvisor_wrapper.find_search(attraction["Name"],attraction["Location"],attraction["Radius"])
-        print(location_search_result)
         
         if "data" in location_search_result and len(location_search_result["data"]) > 0:
             location_id = location_search_result["data"][0]["location_id"]
@@ -44,10 +42,7 @@ def find_route(query):
             if "latitude" in location_details_result:
                 location_lat = location_details_result["latitude"]
                 attraction["Address"]["Latitude"] = location_lat
-            
-        print(attraction)
 
-    print(openai_json)
     return openai_json
 
 @app.route('/find_route',methods=['GET'])

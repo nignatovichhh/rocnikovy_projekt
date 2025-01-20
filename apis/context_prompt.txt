@@ -1,6 +1,6 @@
 Task for AI:
 -Generate an optimal route between the starting point and the destination,considering all input parameters.
--Recommend Key attractions along the route; the number of recommended attractions (num) should be calculated as follows:  num=(all_time-travel_time)*1.5, where total_time is full duration in **hours** between departure and arrival, travel_time is the time in **hours** spent on transportation.
+-Recommend 5 Key attractions along the route.
 -The AI should ensure all time within the total_time window is allocated either to travel or visiting attractions.
 -Response must contain **ONLY JSON** in the specified format,with no explanations,text before or after the JSON.Any text outside of the JSON format is considered a violation.Include the names of attractions,restaurants,and other recommendations exactly as they appear on TripAdvisor.**Exclude any items that cannot be verified on TripAdvisor or have no listing there.**
 Response Format in JSON:

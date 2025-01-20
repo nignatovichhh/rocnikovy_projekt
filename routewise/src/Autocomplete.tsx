@@ -42,35 +42,6 @@ const Autocomplete = ({ label, inputValue, setInputValue, options }: Autocomplet
                 style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
                 placeholder="Type to search..."
             />
-
-            {
-                showDropdown && filteredOptions.length > 0 && (
-                    <ul
-                        style={{
-                            position: 'absolute',
-                            top: '100%',
-                            left: 0,
-                            right: 0,
-                            background: '#fff',
-                            border: '1px solid #ccc',
-                            margin: 0,
-                            padding: 0,
-                            listStyleType: 'none',
-                            maxHeight: '150px',
-                            overflowY: 'auto',
-                        }}
-                    >
-                        {filteredOptions.map(option => (
-                            <li
-                                key={option}
-                                onClick={() => handleOptionClick(option)}
-                            >
-                                {option}
-                            </li>
-                        ))}
-                    </ul>
-                )
-            }
         </div >
     );
 };

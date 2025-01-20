@@ -11,16 +11,17 @@ interface TravelRouteComponentProps {
 const TravelRouteComponent = ({ travelRoute }: TravelRouteComponentProps) => {
 
     return (
-        <div className="route_container">
+        <div>
             <div>
-                <label>Time {travelRoute?.Route.Time}</label>
-                <label>Transport {travelRoute?.Route.Transportation}</label>
-                <label>Short Description: {travelRoute?.Route.RouteOverview}</label>
+                <p>Transport: {travelRoute?.Route.Transportation.map((tr, index) => (
+                    <span key={index}>{tr} </span>
+                ))}</p>
+                <p>Short Description: {travelRoute?.Route.RouteOverview}</p>
             </div>
 
-            <div>
-                {travelRoute?.AttractionRecommendations.map(place => (
-                    <Attraction attraction={place} />
+            <div className="routes_wrapper">
+                {travelRoute?.AttractionRecommendations.map((place, index) => (
+                    <Attraction key={index} attraction={place} />
                 )
                 )}
             </div>

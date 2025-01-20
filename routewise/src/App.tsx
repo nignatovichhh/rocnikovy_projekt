@@ -10,7 +10,7 @@ import BufferingSign from './BufferingSign';
 import Attraction from './Attraction';
 import RouteMap from './RouteMap';
 
-const SERVER_URL = '';
+const SERVER_URL = 'https://rocnikovy-projekt.onrender.com';
 
 export interface AddressInfo {
   Latitude: string;
@@ -19,7 +19,7 @@ export interface AddressInfo {
 }
 
 interface Route {
-  Time: number;
+  TravelTime: number;
   Transportation: string[];
   RouteOverview: string;
 }
@@ -54,11 +54,11 @@ export interface TravelPlan {
 
 function App() {
   const [city] = useState<string[]>(['Bratislava', 'Vienna']);
-  const [startCity, setStartCity] = useState<string>("");
-  const [destCity, setDestCity] = useState<string>("");
+  const [startCity, setStartCity] = useState<string>("Vienna");
+  const [destCity, setDestCity] = useState<string>("Linz");
 
-  const [startDateTime, setStartDateTime] = useState<string>('')
-  const [endDateTime, setEndDateTime] = useState<string>('')
+  const [startDateTime, setStartDateTime] = useState<string>(getCurrentDateTime(1))
+  const [endDateTime, setEndDateTime] = useState<string>(getCurrentDateTime(5))
 
 
   const [transportation] = useState<string[]>(['bus', 'train', 'car', 'foot']);
@@ -80,37 +80,29 @@ function App() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [travelRoute, setTravelRoute] = useState<TravelPlan>();
 
-  const testJson = `{
-    "Name": "Schönbrunn Palace",
-    "Description": "A magnificent baroque palace with vast gardens, offering a glimpse into the imperial history of Austria.",
-    "Location": "48.1845,16.3119",
-    "Radius": 500,
-    "Cost": 50,
-    "Address": {"AddressStr":"Schonbrunner Schlossstrasse 47, Vienna 1130 Austria","Latitude":"48.185135","Longitude":"16.312593"},
-    "Photos": [
-      "https://media-cdn.tripadvisor.com/media/photo-s/1c/2d/28/e4/wwwschoenbrunnat.jpg",
-      "https://media-cdn.tripadvisor.com/media/photo-s/1c/2d/2e/78/wwwschoenbrunnat.jpg",
-      "https://media-cdn.tripadvisor.com/media/photo-s/1c/2d/2e/74/wwwschoenbrunnat.jpg",
-      "https://media-cdn.tripadvisor.com/media/photo-s/1c/2d/2e/70/wwwschoenbrunnat.jpg",
-      "https://media-cdn.tripadvisor.com/media/photo-s/1c/2d/2e/69/wwwschoenbrunnat.jpg"
-    ]
-  }`;
-  const [testAttraction] = useState<AttractionRecommendation>(JSON.parse(testJson));
-  const [testAttractions] = useState<AttractionRecommendation[]>([testAttraction]);
+  function getCurrentDateTime(add_hours: number) {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const date = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours() + add_hours).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${date}T${hours}:${minutes}`;
+  };
 
   async function handleFindRoute() {
     setAreRecsFilled(false);
 
     console.log(startDateTime);
-    let query_url = SERVER_URL;
+    let query_url = SERVER_URL + "/find_route";
 
-    query_url = `?stcity=${startCity}`;
-    query_url = `?destcity=${destCity}`;
-    query_url = `?from=${startDateTime}`;
-    query_url = `?to=${endDateTime}`;
-    query_url = `?interests=${selectedInterests}`;
-    query_url = `?numpeop=${selectedNumPeople}`;
-    query_url = `?age=${selectedAgeGroups}`;
+    query_url += `?starting_city=${startCity}`;
+    query_url += `&destination_city=${destCity}`;
+    query_url += `&departure=${startDateTime}`;
+    query_url += `&arrival=${endDateTime}`;
+    query_url += `&interests=${selectedInterests}`;
+    query_url += `&number_people=${selectedNumPeople}`;
+    query_url += `&age=${selectedAgeGroups}`;
 
     setIsLoading(true)
     try {
@@ -124,6 +116,14 @@ function App() {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
+
+      const responseJson = await response.json();
+      console.log("ANS")
+      console.log(responseJson);
+
+      setTravelRoute(responseJson)
+      setAreRecsFilled(true)
+
     } catch (e: any) {
       console.log("Error in finding route!");
       console.error(e);
@@ -133,9 +133,22 @@ function App() {
     setIsLoading(false);
   }
 
+  function handleClearFilters() {
+    setStartDateTime(getCurrentDateTime(1));
+    setEndDateTime(getCurrentDateTime(5));
+    setSelectedInterests(interests);
+    setSelectedNumPeople(minNumPeople);
+    setSelectedAgeGroups(ageGroups);
+    setStartCity("Vienna");
+    setDestCity("Linz");
+  }
+
 
   return (
     <div className="main_page">
+      <p style={{ color: "red" }}>Note: At the moment the purpose of this page is to visualize the interaction of APIs.
+        Please enter correct data, handling of exceptional cases will be added in
+        future versions. First query search can take about 2 minutes because of hosting service management of inactivity.</p>
       <label>FILTERS</label>
       <div className="filter_section">
         <div>
@@ -155,22 +168,15 @@ function App() {
         </div>
         <div className="btn_container">
           <button className="btn" onClick={handleFindRoute}>FIND ROUTE</button>
-          <button className="btn">CLEAR FILTERS</button>
+          <button className="btn" onClick={handleClearFilters}>CLEAR FILTERS</button>
         </div>
         <div>
           {isLoading && <BufferingSign />}
         </div>
 
       </div>
-      <div className="routes_wrapper">
-        <Attraction attraction={testAttraction} />
-        <Attraction attraction={testAttraction} />
-        <Attraction attraction={testAttraction} />
-      </div>
-      <RouteMap attractions={testAttractions} />
-
       {areRecsFilled && <TravelRouteComponent travelRoute={travelRoute} />}
-    </div>
+    </div >
   )
 }
 

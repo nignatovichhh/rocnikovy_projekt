@@ -20,8 +20,8 @@ const RouteMap = ({ attractions }: RouteMapProps) => {
 
             mapRef.current = new mapboxgl.Map({
                 container: mapContainerRef.current,
-                center: [-74.5, 40], // starting position [lng, lat]
-                zoom: 9 // starting zoom
+                center: [17.10, 48.14], // starting position [lng, lat]
+                zoom: 5 // starting zoom
             });
         }
     }, []); // Empty dependency array to run only once
@@ -33,9 +33,25 @@ const RouteMap = ({ attractions }: RouteMapProps) => {
 
         markers.current = [];
 
+        let center_long = 17.10, center_lat = 48.14; // Bratislava coord
+
         for (const attraction of attractions) {
+            if (attraction.Address.Longitude == "" || attraction.Address.Latitude == "")
+                continue
+            center_long = parseFloat(attraction.Address.Longitude)
+            center_lat = parseFloat(attraction.Address.Latitude)
+        }
+
+        mapRef.current!.setCenter([center_long, center_lat]);
+
+        for (const attraction of attractions) {
+            if (attraction.Address.Longitude == "" || attraction.Address.Latitude == "")
+                continue
+            let long = parseFloat(attraction.Address.Longitude)
+            let lat = parseFloat(attraction.Address.Latitude)
+
             const marker = new mapboxgl.Marker()
-                .setLngLat([parseFloat(attraction.Address.Longitude), parseFloat(attraction.Address.Latitude)])
+                .setLngLat([long, lat])
                 .setPopup(new mapboxgl.Popup().setText(attraction.Name))
                 .addTo(mapRef.current!);
         }

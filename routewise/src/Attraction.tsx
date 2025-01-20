@@ -15,7 +15,6 @@ const Attraction = ({ attraction }: AttractionProps) => {
                 <h4>{attraction.Name}</h4>
                 <p className="address">{attraction.Address.AddressStr}</p>
                 <p>{attraction.Description}</p>
-                <p>{attraction.Cost} USD</p>
             </div>
 
             <PhotoCarousel images={attraction.Photos} />

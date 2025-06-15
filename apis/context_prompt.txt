@@ -2,7 +2,9 @@ Task:
 
 You are an expert travel planner. Given a journey with defined parameters, perform the following:
 1. Generate an optimal travel route between the starting and destination city using realistic assumptions based on transport, distance and time.
-2. Recommend verified TripAdvisor-listed attractions located along the route or within a reasonable detour, if time allows. Exclude any attractions within the starting or destination city if explicity specified.
+2. Recommend verified TripAdvisor-listed attractions located along the route or within a reasonable detour, if time allows.  
+   - Exclude any attractions located within the starting or destination city **if explicitly specified**.
+   - Exclude any attraction listed in the input parameter `excludeFollowingAttractions`.
    - Number of attractions `num = (available_time - travel_time) * 1.5`, rounded to nearest integer.
 3. Ensure that the full `total_time` window is completely allocated between travel and visiting attractions.
 4. Do not fabricate names or locations — only include real entries **listed exactly as on TripAdvisor**.

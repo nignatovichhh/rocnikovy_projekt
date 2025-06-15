@@ -19,6 +19,7 @@ def find_route(query):
         attraction["Address"]["AddressStr"] = ""
         attraction["Address"]["Longitude"] = ""
         attraction["Photos"] = []
+        attraction["Link"] = ""
 
     for attraction in openai_json["AttractionRecommendations"]:
         location_search_result = tripadvisor_wrapper.find_search(attraction["Name"],attraction["Location"],attraction["Radius"])
@@ -42,6 +43,14 @@ def find_route(query):
             if "latitude" in location_details_result:
                 location_lat = location_details_result["latitude"]
                 attraction["Address"]["Latitude"] = location_lat
+
+            if "web_url" in location_details_result:
+                web_url = location_details_result["web_url"]
+                attraction["Link"] = web_url
+
+            if "website" in location_details_result:
+                web_url = location_details_result["website"]
+                attraction["Link"] = web_url
 
     return openai_json
 

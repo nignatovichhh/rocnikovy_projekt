@@ -4,6 +4,7 @@ This repository is intended for student annual project.
 ## Project Overview
 
 Student: Anastasiya Ihnatovich (ihnatovich1@uniba.sk)
+
 Supervisor: Pavel Petrovič (pavel.petrovic@fmph.uniba.sk)
 
 Project Goal:

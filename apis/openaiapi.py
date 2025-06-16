@@ -48,5 +48,5 @@ class OpenAIApiWrapper():
 if __name__ == "__main__":
     # EXAMPLE 
     wrapper = OpenAIApiWrapper()
-    query = '{ "stcity: "Bratislava", "destcity": "Linz", "from": "2025-01-19T09:00", "to": "2025-01-19T19:00", "interests": ["culture", "nature","active leisure"], "numpeop": 2, "budget": 100, "age": ["18-30"]}'
+    query = '{ "stcity: "Bratislava", "destcity": "Linz", "excludeStartCityAttractions": true, "excludeDestCityAttractions": true,  "from": "2025-01-19T09:00", "to": "2025-01-19T19:00", "interests": ["culture", "nature","active leisure"], "numpeop": 2, "budget": 100, "age": ["18-30"]}'
     print(wrapper.send_request(query))

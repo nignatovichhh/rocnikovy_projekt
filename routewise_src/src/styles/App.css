@@ -1,11 +1,25 @@
 .main_page {
   background-color: #ffffff;
+  color: #495464;
   position: absolute;
   top: 0px;
   left: 0px;
   padding: 2%;
   width: calc(100vw - 4%);
 }
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #ffffff;
+    color: #495464;
+  }
+}
+
+.no-clicks {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 
 .filter_section {
   display: flex;
@@ -47,8 +61,8 @@
 .btn_container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 110px;
+  justify-content: space-around;
+  /*min-height: 10px;*/
 }
 
 .btn:hover {
@@ -73,7 +87,9 @@
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: flex-center;
+
 }
 
 .route_container h4 {
@@ -90,4 +106,41 @@
   font-size: 14px;
   text-align: justify;
   line-height: 1.1;
+}
+
+/* TravelPLanComponent */
+.travel-info {
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.travel-info p {
+  margin-bottom: 0.75rem;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.travel-info b {
+  display: inline-block;
+  min-width: 180px;
+  color: #333;
+}
+
+.travel-info a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.travel-info a:hover {
+  text-decoration: underline;
+}
+
+.route-summary {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0.5rem 0;
 }

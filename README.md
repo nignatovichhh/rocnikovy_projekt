@@ -13,6 +13,7 @@ Develop a personalized travel route planning system that recommends optimal rout
 Target Audience:
 Tourists
 
+Project link: https://www.st.fmph.uniba.sk/~ihnatovich1/
 ## 📁 Folder Structure
 
 - `apis/`: External API files

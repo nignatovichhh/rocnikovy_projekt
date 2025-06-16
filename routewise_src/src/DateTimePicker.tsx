@@ -18,31 +18,15 @@ const DateTimePicker = ({
   setEndDateTime,
   minDuration,
 }: DateTimePickerProps) => {
-  function timeToSeconds(timeStr: string) {
-    const date = new Date(timeStr);
-    if (isNaN(date.getTime())) {
-      throw new Error("Invalid date format");
-    }
-    return Math.floor(date.getTime() / 1000);
-  }
-
   const handleStartDateTimeChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (
-      timeToSeconds(endDateTime) - timeToSeconds(event.target.value) >=
-      minDuration
-    )
-      setStartDateTime(event.target.value);
+    setStartDateTime(event.target.value);
   };
   const handleEndDateTimeChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (
-      -timeToSeconds(startDateTime) + timeToSeconds(event.target.value) >=
-      minDuration
-    )
-      setEndDateTime(event.target.value);
+    setEndDateTime(event.target.value);
   };
 
   return (

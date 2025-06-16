@@ -265,7 +265,28 @@ function App() {
     return responseJson;
   }
 
+  function timeToSeconds(timeStr: string) {
+    const date = new Date(timeStr);
+    if (isNaN(date.getTime())) {
+      throw new Error("Invalid date format");
+    }
+    return Math.floor(date.getTime() / 1000);
+  }
+
+  function checkTime() {
+    if (
+      timeToSeconds(endDateTime) - timeToSeconds(startDateTime) <
+      minDurationS
+    )
+      return false;
+    return true;
+  }
   async function handleFindRoute() {
+    if (!checkTime()) {
+      alert("Time range is invalid! Consider minimum duration.");
+      setEndDateTime(addSecondsToTime(startDateTime, minDurationS));
+      return;
+    }
     setAreRecsFilled(false);
     const responseJson = await requestRecommendations();
     const updatedAttractions = responseJson.AttractionRecommendations.map(
@@ -354,7 +375,7 @@ function App() {
     }
 
     setMinDurationS(data.duration);
-    console.log(addSecondsToTime(startDateTime, data.duration));
+    //console.log(addSecondsToTime(startDateTime, data.duration));
     setEndDateTime(addSecondsToTime(startDateTime, data.duration));
     setIsLoading(false);
   }

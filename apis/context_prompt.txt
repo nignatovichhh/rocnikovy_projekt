@@ -12,7 +12,7 @@ You are an expert travel planner. Given a journey with defined parameters, perfo
 
 JSON Response Format:
 {
- "Route":{"RouteOverview":"{short description}", "DestFunFact": "{fact about destination country}" },
+ "Route":{"RouteOverview":"{short description}", "DestFact": "{funny fact about destination country}" },
  "AttractionRecommendations": [
    {
      "Name": "{Exact TripAdvisor name}",

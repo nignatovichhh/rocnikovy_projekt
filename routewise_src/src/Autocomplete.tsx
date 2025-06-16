@@ -1,49 +1,37 @@
-import React, { useState, ChangeEvent } from 'react';
-import "./styles/App.css"
+import React, { useState, ChangeEvent } from "react";
+import "./styles/App.css";
+import { AddressInfo } from "./App";
+import GeocoderInput from "./GeocoderInput";
 
 interface AutocompleteProps {
-    label: string;
-    inputValue: string;
-    setInputValue: (inputValue: string) => void;
-    options: string[];
+  label: string;
+  inputValue: AddressInfo;
+  setInputValue: (inputValue: AddressInfo) => void;
+  includeCity: boolean;
+  setIncludeCity: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Autocomplete = ({ label, inputValue, setInputValue, options }: AutocompleteProps) => {
-    const [filteredOptions, setFilteredOptions] = useState<string[]>([]);
-    const [showDropdown, setShowDropdown] = useState(false);
-
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setInputValue(value);
-
-        if (value) {
-            const filtered = options.filter(option =>
-                option.toLowerCase().startsWith(value.toLowerCase())
-            );
-            setFilteredOptions(filtered);
-            setShowDropdown(true);
-        } else {
-            setShowDropdown(false);
-        }
-    };
-
-    const handleOptionClick = (option: string) => {
-        setInputValue(option);
-        setShowDropdown(false);
-    };
-
-    return (
-        <div className="filter">
-            <label>{label}</label>
-            <input
-                type="text"
-                value={inputValue}
-                onChange={handleInputChange}
-                style={{ width: '100%', padding: '8px', boxSizing: 'border-box' }}
-                placeholder="Type to search..."
-            />
-        </div >
-    );
+const Autocomplete = ({
+  label,
+  inputValue,
+  setInputValue,
+  includeCity,
+  setIncludeCity,
+}: AutocompleteProps) => {
+  return (
+    <div className="filter">
+      <div>
+        <label>{label}</label>
+        <input
+          type="checkbox"
+          checked={includeCity}
+          onChange={() => setIncludeCity((prev) => !prev)}
+          title="Include attractions from the following city"
+        />
+      </div>
+      <GeocoderInput inputCity={inputValue} onSelect={setInputValue} />
+    </div>
+  );
 };
 
 export default Autocomplete;

@@ -32,7 +32,7 @@ def find_route(query):
             photos_search_result = tripadvisor_wrapper.location_photos(location_id)
             if "data" in photos_search_result:
                 for photo in photos_search_result["data"]:
-                    attraction["Photos"].append(photo["images"]["large"]["url"])
+                    attraction["Photos"].append(photo["images"]["original"]["url"])
             
             location_details_result = tripadvisor_wrapper.location_details(location_id)
             
